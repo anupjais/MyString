@@ -1,0 +1,209 @@
+package strings_implement;
+
+public final class MyString {
+	char[] arr;
+
+	public MyString() {
+		super();
+		arr = new char[0];
+	}
+
+	public MyString(String str) {
+//		setData(str);
+		arr = new char[str.length()];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = str.charAt(i);
+		}
+	}
+
+	public MyString(StringBuffer sb) {
+		arr = new char[sb.length()];
+
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = sb.charAt(i);
+		}
+	}
+
+	public MyString(StringBuilder sb) {
+		arr = new char[sb.length()];
+
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = sb.charAt(i);
+		}
+	}
+
+	public MyString(char[] arr) {
+		this.arr = arr;
+	}
+
+	public MyString(char[] arr, int start, int count) {
+		if (arr.length < (start + count)) {
+			throw new MyStringIndexOutOfBoundsException("NOT POSSIBLE");
+		}
+
+//		this.arr = arr;
+		this.arr = new char[count];
+
+		for (int i = start, j = 0; i < start + count; i++) {
+			this.arr[j++] = arr[i];
+		}
+	}
+
+	public MyString(byte[] arr) {
+		this.arr = new char[arr.length];
+
+		for (int i = 0; i < arr.length; i++) {
+			this.arr[i] = (char) arr[i];
+		}
+	}
+
+	public MyString(int[] arr) {
+		this.arr = new char[arr.length];
+
+		for (int i = 0; i < arr.length; i++) {
+			this.arr[i] = (char) arr[i];
+		}
+	}
+
+	public MyString(int[] arr, int start, int count) {
+		if (arr.length < (start + count)) {
+			throw new MyStringIndexOutOfBoundsException("NOT POSSIBLE");
+		}
+
+		this.arr = new char[count];
+
+		for (int i = start, j = 0; i < count + start; i++) {
+			this.arr[j++] = (char) arr[i];
+		}
+	}
+
+	public MyString(byte[] arr, int start, int count) {
+		if (arr.length < (start + count)) {
+			throw new MyStringIndexOutOfBoundsException("NOT POSSIBLE");
+		}
+
+		this.arr = new char[count];
+
+		for (int i = start, j = 0; i < count + start; i++) {
+			this.arr[j++] = (char) arr[i];
+		}
+	}
+
+//	private void setData(String str) {
+//		arr = new char[str.length()];
+//		for(int i=0; i<arr.length; i++)
+//		{
+//			arr[i] = str.charAt(i);
+//		}
+//	}
+
+	@Override
+	public String toString() {
+		return new String(arr);
+	}
+
+	public char charAt(int i) {
+		return arr[i];
+	}
+
+	public int length() {
+		return arr.length;
+	}
+
+	public boolean isEmpty() {
+		return arr.length > 0 ? false : true;
+	}
+
+	public MyString concat(MyString str) {
+		char[] newArr = new char[arr.length + str.length()];
+		int i = 0;
+
+		for (; i < arr.length; i++) {
+			newArr[i] = arr[i];
+		}
+
+		for (int j = 0; j < str.length(); j++) {
+			newArr[i++] = str.charAt(j);
+		}
+		return new MyString(newArr);
+	}
+
+	public MyString toLowerCase() {
+		MyString newStr = new MyString();
+
+		for (char ele : arr) {
+			if (ele >= 65 && ele <= 90) {
+				newStr = newStr.concat(new MyString((char) (ele + 32) + ""));
+				continue;
+			}
+			newStr = newStr.concat(new MyString(ele + ""));
+		}
+
+		return newStr;
+	}
+
+	public MyString toUpperCase() {
+		MyString newStr = new MyString();
+
+		for (char ele : arr) {
+			if (ele >= 97 && ele <= 122) {
+				newStr = newStr.concat(new MyString((char) (ele - 32) + ""));
+				continue;
+			}
+			newStr = newStr.concat(new MyString(ele + ""));
+		}
+
+		return newStr;
+	}
+	
+	public int indexOf(MyString str) {
+		int len = str.length();
+		if (len == 0) 
+			return 0;
+
+		for (int i = 0; i <= arr.length - len; i++) {
+			int j = 0;
+			while (j < len && arr[i + j] == str.charAt(j)) {
+				j++;
+			}
+			if (j == len) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int indexOf(MyString str, int start) {
+		int len = str.length();
+		if (len == 0) 
+			return 0;
+		
+		for (int i = start; i <= arr.length - len; i++) {
+			int j = 0;
+			while (j < len && arr[i + j] == str.charAt(j)) {
+				j++;
+			}
+			if (j == len) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int lastIndexOf(MyString str) {
+		int len = str.length();
+		if (len == 0) 
+			return 0;
+		
+		for (int i = arr.length - len; i>=0; i--) {
+			int j = 0;
+			while (j < len && arr[i + j] == str.charAt(j)) {
+				j++;
+			}
+			if (j == len) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
