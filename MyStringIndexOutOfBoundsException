@@ -1,0 +1,8 @@
+@SuppressWarnings("serial")
+public class MyStringIndexOutOfBoundsException extends RuntimeException {
+	
+	public MyStringIndexOutOfBoundsException(String desc) {
+		super(desc);
+	}
+
+}
